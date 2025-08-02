@@ -1,35 +1,72 @@
 # This code is heavily based on the introduction to ZeroMQ PDF provided on Canvas
 import zmq
 
-# get a message from the user to send to the server
-changes_json = {
-                    "action": "update_plan",
-                    "remove": "Wash car",
-                    "add": {
-                            "id": "laundry",
-                            "duration": 40
-                            },
-                    "plan": [
-                                {"id": "Wash car", "duration": 30},
-                                {"id": "Study", "duration": 50}
-                            ],
-                    "allocated_time": 120
-                }
+# Set up the sample data for requests
 
-message = changes_json
-print("Message sent: '" + str(message) + "'")
+# this is a valid request with an add and remove
+valid_request = {
+    "action": "update_plan",
+    "remove": "Wash car",
+    "add": {
+        "id": "laundry",
+        "duration": 40
+    },
+    "plan": [
+        {"id": "Wash car", "duration": 30},
+        {"id": "Study", "duration": 50}
+    ],
+    "allocated_time": 120
+}
 
-# establish the context, set up a request socket, and connect to the server
-context = zmq.Context()
-socket = context.socket(zmq.REQ)
-socket.connect("tcp://localhost:5555")
+# this request attempts to remove a task that isn't in the original plan
+removal_error = {
+    "action": "update_plan",
+    "remove": "Wash car",
+    "add": {
+        "id": "laundry",
+        "duration": 40
+    },
+    "plan": [
+        {"id": "Fix car", "duration": 30},
+        {"id": "Study", "duration": 50}
+    ],
+    "allocated_time": 120
+}
 
-# send the user-supplied message
-socket.send_json(message)
+# this request creates changes that result in the tasks exceeding the allocated time limit
+time_exceeded = {
+    "action": "update_plan",
+    "remove": "Wash car",
+    "add": {
+        "id": "laundry",
+        "duration": 40
+    },
+    "plan": [
+        {"id": "Wash car", "duration": 30},
+        {"id": "Study", "duration": 50}
+    ],
+    "allocated_time": 85
+}
 
-# get the reply from the server
-reply = socket.recv_json()
-print("Server replied: ", str(reply))
+# put the samples in a list
+samples = [valid_request, removal_error, time_exceeded, ""]
 
-print(type(reply))
-print(reply["plan"][1])
+
+def main():
+    # this is basically boilerplate request setup code, based on the course-provided zmq documentation
+    # establish the context, set up a request socket, and connect to the server
+    context = zmq.Context()
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5555")
+
+    # loop over the sample data
+    for sample in samples:
+        socket.send_json(sample)  # use send_json since all requests will be in JSON format
+
+        # get the reply from the server
+        reply = socket.recv_json()
+        print("Server replied: ", reply)
+
+
+if __name__ == "__main__":
+    main()
