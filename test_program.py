@@ -1,5 +1,6 @@
 # This code is heavily based on the introduction to ZeroMQ PDF provided on Canvas
 import zmq
+import time
 
 # Set up the sample data for requests
 
@@ -70,6 +71,8 @@ def main():
             print("Just the plan: ", reply["plan"])
         else:
             print("Error message: ", reply["message"])
+
+        time.sleep(5)  # so that we can see each request more clearly on the video demo
 
 
 if __name__ == "__main__":
