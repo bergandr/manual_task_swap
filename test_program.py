@@ -65,7 +65,11 @@ def main():
 
         # get the reply from the server
         reply = socket.recv_json()
-        print("Server replied: ", reply)
+        print("\nFull reply:", reply)
+        if "plan" in reply:
+            print("Just the plan: ", reply["plan"])
+        else:
+            print("Error message: ", reply["message"])
 
 
 if __name__ == "__main__":
