@@ -39,9 +39,9 @@ try:
                     reply = {"action": "duration_error", "message": "New plan exceeds time allocation."}
 
             # reply with either a new plan or an error message
-            print("Replying to request")
+            print("Replying to request\n")
             socket.send_json(reply)
-
+            print("Listening for messages ...")
         else:
             # if the client somehow connected but the message was lost
             socket.send_json(generic_error_message)
