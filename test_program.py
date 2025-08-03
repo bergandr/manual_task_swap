@@ -50,7 +50,9 @@ time_exceeded = {
 }
 
 # put the samples in a list
-samples = [valid_request, removal_error, time_exceeded, ""]
+samples = [{"name": "valid request", "request": valid_request},
+           {"name": "removal error", "request": removal_error},
+           {"name": "changes exceed time limit", "request": time_exceeded}]
 
 
 def main():
@@ -62,15 +64,16 @@ def main():
 
     # loop over the sample data
     for sample in samples:
-        socket.send_json(sample)  # use send_json since all requests will be in JSON format
+        print("\nSending", sample["name"])
+        socket.send_json(sample["request"])  # use send_json since all requests will be in JSON format
 
         # get the reply from the server
         reply = socket.recv_json()
-        print("\nFull reply:", reply)
+        print("Full reply:", reply)
         if "plan" in reply:
-            print("Just the plan: ", reply["plan"])
+            print("Just the plan:", reply["plan"])
         else:
-            print("Error message: ", reply["message"])
+            print("Error message:", reply["message"])
 
         time.sleep(5)  # so that we can see each request more clearly on the video demo
 
