@@ -104,3 +104,5 @@ Full example of a valid response:
 Click on the image to enlarge.
 
 <img width="985" height="900" alt="task_swap_uml" src="https://github.com/user-attachments/assets/8a2dd838-3d6d-423f-b6df-21685b9a182e" />
+
+(Diagram created using the online service "Visual Paradigm.")
