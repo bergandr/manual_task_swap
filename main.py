@@ -27,16 +27,16 @@ try:
             if "error" in modified_plan:
                 # only a 'remove' can result in an error
                 print("Error: task to remove not found in plan")
-                reply = {"action": "removal error", "message": modified_plan["error"]}
+                reply = {"action": "removal_error", "message": modified_plan["error"]}
             else:
                 # if the changes were accepted, validate the new plan against the time allocation
                 allocated_time = request["allocated_time"]
                 time_check = validate_plan(allocated_time, modified_plan)
                 if time_check:
-                    reply = {"action": "modified plan", "plan": modified_plan, "allocated_time": allocated_time}
+                    reply = {"action": "modified_plan", "plan": modified_plan, "allocated_time": allocated_time}
                 else:
                     print("Error: tasks exceed allocated time")
-                    reply = {"action": "duration error", "message": "New plan exceeds time allocation."}
+                    reply = {"action": "duration_error", "message": "New plan exceeds time allocation."}
 
             # reply with either a new plan or an error message
             print("Replying to request")

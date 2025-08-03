@@ -84,14 +84,14 @@ Note that the response may be an error message rather than a plan. Check the par
 Possible response `action`s:
 
 - `{'action': 'modified_plan'}`: response includes a valid, updated plan
-- `{'action': 'removal error'}`: Task not found in original plan.
-- `{'action': 'duration error'}`: New plan exceeds time allocation.
+- `{'action': 'removal_error'}`: Task not found in original plan.
+- `{'action': 'duration_error'}`: New plan exceeds time allocation.
 - `{'action': 'error'}`: Generic error. For errors whose cause hasn't been determined programmatically.
 
 Full example of a valid response:
 ```
 {
-    'action': 'modified plan', 
+    'action': 'modified_plan', 
     'plan': [
         {'id': 'Study', 'duration': 50}, 
         {'id': 'laundry', 'duration': 40}], 
