@@ -55,7 +55,7 @@ def apply_changes(change_request):
     # do not attempt to add to a plan after encountering a remove error
     # return the error right away
     if remove_error:
-        return {"error": "Task not found in original plan."}
+        return {"error": "Task not found in original plan."}  # do not continue on to run add()
 
     # if the plan includes an "add" request, run the add function
     if "add" in change_request:
