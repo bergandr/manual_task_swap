@@ -101,4 +101,6 @@ Full example of a valid response:
 
 ## UML sequence diagram showing how requesting and receiving data works
 
- UML sequence diagram showing how requesting and receiving data works. Make it detailed enough that your teammate (and your grader) will understand.
+Click on the image to enlarge.
+
+<img width="985" height="900" alt="task_swap_uml" src="https://github.com/user-attachments/assets/8a2dd838-3d6d-423f-b6df-21685b9a182e" />
