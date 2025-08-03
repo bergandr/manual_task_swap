@@ -16,7 +16,7 @@ def remove_task(task, plan):
 
     # look for the task in the plan and remove it if it's found
     for item in plan:
-        if task == item["id"]:
+        if task.lower() == item["id"].lower():
             plan.remove(item)
             error_code = False
 
